@@ -28,18 +28,24 @@ const ProtectedRoute = ({ children, requireAdmin }) => {
     );
 };
 
-// Prevents logged-in users from seeing login/register — sends them to dashboard
+// Prevents logged-in users from seeing login/register — sends them to dashboard/admin
 const AuthRedirect = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     if (loading) return <div>Loading...</div>;
-    return user ? <Navigate to="/dashboard" /> : children;
+    if (user) {
+        return user.role === 'admin' ? <Navigate to="/admin" /> : <Navigate to="/dashboard" />;
+    }
+    return children;
 };
 
-// Shows landing page for guests; redirects logged-in users straight to dashboard
+// Shows landing page for guests; redirects logged-in users straight to dashboard/admin
 const HomeRedirect = () => {
     const { user, loading } = useContext(AuthContext);
     if (loading) return <div>Loading...</div>;
-    return user ? <Navigate to="/dashboard" /> : <LandingPage />;
+    if (user) {
+        return user.role === 'admin' ? <Navigate to="/admin" /> : <Navigate to="/dashboard" />;
+    }
+    return <LandingPage />;
 };
 
 const AppRoutes = () => {

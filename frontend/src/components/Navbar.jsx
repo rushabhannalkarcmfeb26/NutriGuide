@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Utensils, LayoutDashboard, LineChart, Target, User, HelpCircle } from 'lucide-react';
+import { Utensils, LayoutDashboard, LineChart, Target, User, HelpCircle, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
@@ -16,6 +16,10 @@ const Navbar = () => {
     { name: 'Profile', path: '/profile', icon: <User size={20} /> },
     { name: 'Help', path: '/help', icon: <HelpCircle size={20} /> },
   ];
+
+  if (user && user.role === 'admin') {
+    navLinks.push({ name: 'Admin', path: '/admin', icon: <ShieldCheck size={20} /> });
+  }
 
   if (!user) return null;
 

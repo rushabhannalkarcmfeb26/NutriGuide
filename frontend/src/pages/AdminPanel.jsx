@@ -48,7 +48,7 @@ const AdminPanel = () => {
         <div className="admin-panel">
             <header className="dashboard-header">
                 <h1>Admin Panel</h1>
-                <button onClick={() => navigate('/')} className="btn-logout">Back to Dashboard</button>
+                <button onClick={() => navigate('/dashboard')} className="btn-logout">Back to Dashboard</button>
             </header>
 
             <div className="admin-grid">
